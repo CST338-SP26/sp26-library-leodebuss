@@ -1,6 +1,7 @@
 package Utilities;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * @author Leonardo Lopez
@@ -25,4 +26,78 @@ public class Book {
     private String author;
     private LocalDate dueDate;
 
+    public Book(String isbn, String title, String subject, int pageCount, String author, LocalDate dueDate) {
+        this.isbn = isbn;
+        this.title = title;
+        this.subject = subject;
+        this.pageCount = pageCount;
+        this.author = author;
+        this.dueDate = dueDate;
+    }
+
+    // [Title] by [Author] ISBN: [isbn]
+    @Override
+    public String toString() {
+        return title + " by " + author + " ISBN: " + isbn;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return pageCount == book.pageCount && Objects.equals(isbn, book.isbn) && Objects.equals(title, book.title) && Objects.equals(subject, book.subject) && Objects.equals(author, book.author);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(isbn, title, subject, pageCount, author);
+    }
+
+    public String getISBN() {
+        return isbn;
+    }
+
+    public void setISBN(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public int getPageCount() {
+        return pageCount;
+    }
+
+    public void setPageCount(int pageCount) {
+        this.pageCount = pageCount;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
 }
