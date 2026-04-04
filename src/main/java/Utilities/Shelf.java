@@ -66,4 +66,82 @@ public class Shelf {
         Shelf shelf = (Shelf) o;
         return shelfNumber == shelf.shelfNumber && Objects.equals(subject, shelf.subject);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(shelfNumber, subject);
+    }
+
+    // toString
+    @Override
+    public String toString() {
+        return shelfNumber + " : " + subject;
+    }
+
+    // getBookCount
+    public int getBookCount(Book book) {
+        if (!books.containsKey(book)) {
+            return -1;
+        }
+        return books.get(book);
+    }
+
+    // addBook
+    public Code addBook(Book book) {
+        // subject mismatch FIRST (important for tests)
+        if (!book.getSubject().equalsIgnoreCase(this.subject)) {
+            return Code.SHELF_SUBJECT_MISMATCH_ERROR;
+        }
+        if (books.containsKey(book)) {
+            books.put(book, books.get(book) + 1);
+        } else {
+            books.put(book, 1);
+        }
+        System.out.println(book + " added to shelf " + this);
+        return Code.SUCCESS;
+    }
+
+    // removeBook
+    public Code removeBook(Book book) {
+        if (!books.containsKey(book)) {
+            System.out.println(book.getTitle() + " is not on shelf " + subject);
+            return Code.BOOK_NOT_IN_INVENTORY_ERROR;
+        }
+        int count = books.get(book);
+        if (count == 0) {
+            System.out.println("No copies of " + book.getTitle() +
+                    " remain on shelf " + subject);
+            return Code.BOOK_NOT_IN_INVENTORY_ERROR;
+        }
+        books.put(book, count - 1);
+        System.out.println(book.getTitle() + " successfully removed from shelf " + subject);
+        return Code.SUCCESS;
+    }
+
+    // listBooks
+    public String listBooks() {
+        StringBuilder sb = new StringBuilder();
+        int totalCount = 0;
+        for (int count : books.values()) {
+            totalCount += count;
+        }
+        String word = (totalCount == 1) ? "book" : "books";
+        sb.append(totalCount)
+                .append(" ")
+                .append(word)
+                .append(" on shelf: ")
+                .append(this.toString());
+        // IMPORTANT: test expects NO trailing newline when empty
+        if (books.isEmpty()) {
+            return sb.toString();
+        }
+        sb.append("\n");
+        for (Map.Entry<Book, Integer> entry : books.entrySet()) {
+            sb.append(entry.getKey().toString())
+                    .append(" ")
+                    .append(entry.getValue())
+                    .append("\n");
+        }
+        return sb.toString();
+    }
 }
