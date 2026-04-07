@@ -20,7 +20,7 @@ public class Reader {
     private int cardNumber;
     private String name;
     private String phone;
-    private ArrayList<Book> books;
+    private List<Book> books = new ArrayList<>();
 
     // Constructor
     public Reader(int cardNumber, String name, String phone) {
@@ -55,11 +55,11 @@ public class Reader {
         this.phone = phone;
     }
 
-    public ArrayList<Book> getBooks() {
+    public List<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(ArrayList<Book> books) {
+    public void setBooks(List<Book> books) {
         this.books = books;
     }
 
