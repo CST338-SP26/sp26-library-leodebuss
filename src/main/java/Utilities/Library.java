@@ -101,7 +101,6 @@ public class Library {
             return Code.FILE_NOT_FOUND_ERROR;
         }
     }
-    // ---------- REST OF YOUR ORIGINAL METHODS ----------
     public Code addBook(Book book) {
         if (book == null) return Code.BOOK_NOT_IN_INVENTORY_ERROR;
 
@@ -246,5 +245,5 @@ public class Library {
 
     public String getName() {
         return name;
-    }
+    } // oops almost forgot
 }
